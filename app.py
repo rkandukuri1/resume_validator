@@ -19,6 +19,10 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # -----------------------------
 app = FastAPI(title="Resume Validator API")
 
+@app.get("/")
+def home():
+    return {"message": "Resume Validator API is running"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
