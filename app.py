@@ -244,3 +244,5 @@ async def improve_resume(
         filename="improved_resume.docx",
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
+    st.warning("File Downloaded to default Downloads folder")
+    st.warning("There might be some format issues in the Improved file like Bold/Underline/Italics etc. Please check.") 
