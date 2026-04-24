@@ -158,7 +158,6 @@ def create_resume_file(original_file, new_text):
     for i, line in enumerate(new_lines):
 
         source_para = original_doc.paragraphs[i] if i < len(original_doc.paragraphs) else None
-
         is_bullet = line.startswith(("•", "-", "*"))
 
         if is_bullet:
@@ -198,14 +197,13 @@ def home():
 
 
 # -----------------------------
-# Validate Resume API
+# Validate Resume
 # -----------------------------
-@app.post("/validate")
+@app.post("/validate-resume")
 async def validate_resume(
     resume_file: UploadFile = File(...),
     requirement_text: str = Form(...)
 ):
-
     with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp:
         shutil.copyfileobj(resume_file.file, tmp)
         temp_path = tmp.name
@@ -218,14 +216,13 @@ async def validate_resume(
 
 
 # -----------------------------
-# Improve Resume API
+# Improve Resume
 # -----------------------------
-@app.post("/improve")
+@app.post("/improve-resume")
 async def improve_resume(
     resume_file: UploadFile = File(...),
     requirement_text: str = Form(...)
 ):
-
     with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp:
         shutil.copyfileobj(resume_file.file, tmp)
         temp_path = tmp.name
@@ -243,7 +240,7 @@ async def improve_resume(
     file_path = create_resume_file(temp_path, improved.improved_resume)
 
     return FileResponse(
-        file_path,
+        path=file_path,
         filename="improved_resume.docx",
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
