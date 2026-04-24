@@ -6,3 +6,4 @@ python-docx
 pydantic
 mammoth
 docx2txt
+python-multipart
